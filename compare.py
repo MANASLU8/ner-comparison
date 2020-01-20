@@ -1,26 +1,32 @@
-from average_precision import get_average_precision, get_weighted_average
+from average_precision import get_average_precision, get_weighted_average, get_average_recall, get_average_f1
 import argparse, os
 from file_operations import read_lines
 from converters import get_labels, delete_prefixes
 from printers import print_scores
 
-def compare(reference, hypotheses):
+NO_ENTITY_MARK = 'O'
+
+def get_scores(compute_score, hypotheses, reference):
     hypotheses_precision_scores = {}
     for key in hypotheses:
         hypothese_scores = {}
         labels = list(set(reference))   
-        scores = get_average_precision(y_true=reference, y_pred=hypotheses[key], labels=labels, average=None)
+        scores = compute_score(y_true=reference, y_pred=hypotheses[key], labels=labels, average=None)
         for label, score in zip(labels, scores):
             hypothese_scores[label] = score
 
-        weighted_average = get_weighted_average(hypothese_scores, {label: hypotheses[key].count(label) for label in labels})
+        weighted_average = get_weighted_average({score: hypothese_scores[score] for score in hypothese_scores if score != NO_ENTITY_MARK}, {label: hypotheses[key].count(label) for label in labels if label != NO_ENTITY_MARK})
 
-        hypothese_scores['weighted-average'] = weighted_average
-        hypothese_scores['unweighted-average'] = get_average_precision(y_true=reference, y_pred=hypotheses[key], labels=labels, average='macro')
-        hypothese_scores['micro-average'] = get_average_precision(y_true=reference, y_pred=hypotheses[key], labels=labels, average='micro')
+        hypothese_scores['weighted-average (without O)'] = weighted_average
+        hypothese_scores['unweighted-average (without O)'] = compute_score(y_true=reference, y_pred=hypotheses[key], labels=[label for label in labels if label != NO_ENTITY_MARK], average='macro')
+        hypothese_scores['micro-average'] = compute_score(y_true=reference, y_pred=hypotheses[key], labels=labels, average='micro')
 
         hypotheses_precision_scores[key] = hypothese_scores
-    return {'precision': hypotheses_precision_scores}
+    return hypotheses_precision_scores
+
+def compare(reference, hypotheses):
+    
+    return {'precision': get_scores(get_average_precision, hypotheses, reference), 'recall': get_scores(get_average_recall, hypotheses, reference), 'f1': get_scores(get_average_f1, hypotheses, reference)}
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
