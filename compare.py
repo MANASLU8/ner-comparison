@@ -97,21 +97,21 @@ if __name__ == "__main__":
         scores = {'prefix-sensitive': compare(reference_labels, prefix_sensitive_hypotheses), 'prefix-agnostic': compare(delete_prefixes(reference_labels), prefix_agnostic_hypotheses)}
         print_scores(scores)
     else:
-        prefix_sensitive_hypotheses = {}
-        prefix_agnostic_hypotheses = {}
+        
         average_scores = []
         for dir_path in os.listdir(args.cv_dir):
             scores_to_average = []
             if dir_path != args.cv_reference_dir:
+                #print(f'handling {dir_path}')
                 for path in os.listdir(f'{args.cv_dir}/{dir_path}'):
-                    #print(path)
+                    #print(f'\t{path}')
                     hypothesis_path = f'{args.cv_dir}/{dir_path}/{path}'
                     reference_path = f'{args.cv_dir}/{args.cv_reference_dir}/{path}'
                     
                     reference_labels = get_labels(reference_path)
                     hypothesis_labels = get_labels(hypothesis_path)
-                    prefix_sensitive_hypotheses[dir_path] = hypothesis_labels
-                    prefix_agnostic_hypotheses[dir_path] = delete_prefixes(hypothesis_labels)
+                    prefix_sensitive_hypotheses = {dir_path: hypothesis_labels}
+                    prefix_agnostic_hypotheses = {dir_path: delete_prefixes(hypothesis_labels)}
 
                     scores_to_average.append({'prefix-sensitive': compare(reference_labels, prefix_sensitive_hypotheses), 'prefix-agnostic': compare(delete_prefixes(reference_labels), prefix_agnostic_hypotheses)})
             average_scores.append(get_average_score(scores_to_average))

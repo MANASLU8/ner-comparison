@@ -1,0 +1,74 @@
+prefix-sensitive
+precision
+label	chars_lstm_lstm_crf	lstm_crf
+I-LocOrg	0.242	0.309
+B-LocOrg	0.513	0.398
+B-Org	0.843	0.685
+I-Person	0.872	0.663
+I-Org	0.856	0.661
+B-Person	0.870	0.658
+O	0.985	0.958
+I-Location	0.809	0.681
+B-Location	0.655	0.562
+weighted-average (without O)	0.821	0.649
+unweighted-average (without O)	0.708	0.577
+micro-average	0.956	0.906
+recall
+label	chars_lstm_lstm_crf	lstm_crf
+I-LocOrg	0.134	0.043
+B-LocOrg	0.357	0.150
+B-Org	0.827	0.560
+I-Person	0.929	0.722
+I-Org	0.846	0.701
+B-Person	0.865	0.650
+O	0.985	0.967
+I-Location	0.815	0.709
+B-Location	0.705	0.558
+weighted-average (without O)	0.832	0.646
+unweighted-average (without O)	0.685	0.512
+micro-average	0.956	0.906
+f1
+label	chars_lstm_lstm_crf	lstm_crf
+I-LocOrg	0.150	0.067
+B-LocOrg	0.408	0.215
+B-Org	0.835	0.616
+I-Person	0.900	0.691
+I-Org	0.851	0.680
+B-Person	0.868	0.654
+O	0.985	0.962
+I-Location	0.811	0.694
+B-Location	0.676	0.560
+weighted-average (without O)	0.825	0.644
+unweighted-average (without O)	0.687	0.522
+micro-average	0.956	0.906
+prefix-agnostic
+precision
+label	chars_lstm_lstm_crf	lstm_crf
+Person	0.917	0.734
+Location	0.717	0.630
+O	0.985	0.958
+Org	0.883	0.736
+LocOrg	0.497	0.389
+weighted-average (without O)	0.857	0.711
+unweighted-average (without O)	0.754	0.622
+micro-average	0.963	0.917
+recall
+label	chars_lstm_lstm_crf	lstm_crf
+Person	0.945	0.763
+Location	0.758	0.634
+O	0.985	0.967
+Org	0.869	0.686
+LocOrg	0.339	0.143
+weighted-average (without O)	0.868	0.704
+unweighted-average (without O)	0.728	0.556
+micro-average	0.963	0.917
+f1
+label	chars_lstm_lstm_crf	lstm_crf
+Person	0.931	0.748
+Location	0.736	0.631
+O	0.985	0.962
+Org	0.876	0.709
+LocOrg	0.393	0.206
+weighted-average (without O)	0.861	0.705
+unweighted-average (without O)	0.734	0.574
+micro-average	0.963	0.917
