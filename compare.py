@@ -102,9 +102,9 @@ if __name__ == "__main__":
         for dir_path in os.listdir(args.cv_dir):
             scores_to_average = []
             if dir_path != args.cv_reference_dir:
-                #print(f'handling {dir_path}')
+                print(f'handling {dir_path}')
                 for path in os.listdir(f'{args.cv_dir}/{dir_path}'):
-                    #print(f'\t{path}')
+                    print(f'\t{path}')
                     hypothesis_path = f'{args.cv_dir}/{dir_path}/{path}'
                     reference_path = f'{args.cv_dir}/{args.cv_reference_dir}/{path}'
                     
